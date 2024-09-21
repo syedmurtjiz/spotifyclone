@@ -2,11 +2,12 @@ import { reducerCases } from "../utils/Constants";
 
 export const initialState = {
     token: null,
-    playlists: [], 
-    userInfo: null, 
+    playlists: [],
+    userInfo: null,
     selectedPlaylistID: "75C9uOd3r9vXfj7LPHDkQd",
     selectedPlaylist: null,
-    selectedPlaying: null, // Added this for the current playing state
+    currentPlaying: null,
+    playerState: false,
 };
 
 const reducer = (state, action) => {
@@ -31,11 +32,21 @@ const reducer = (state, action) => {
                 ...state,
                 selectedPlaylist: action.selectedPlaylist,
             };
-            case reducerCases.SET_PLAYING:
-                return {
-                  ...state,
-                  currentPlaying: action.currentPlaying,
-                };
+        case reducerCases.SET_PLAYING:
+            return {
+                ...state,
+                currentPlaying: action.currentPlaying,
+            };
+        case reducerCases.SET_PLAYER_STATE:
+            return {
+                ...state,
+                playerState: action.playerState,
+            };
+        case reducerCases.SET_PLAYLIST_ID:
+            return {
+                ...state,
+                selectedPlaylistID: action.selectedPlaylistId,
+            };
         default:
             return state;
     }

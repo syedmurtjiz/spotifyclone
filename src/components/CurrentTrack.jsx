@@ -49,10 +49,9 @@ export default function CurrentTrack() {
             <img src={currentPlaying.image} alt="Current track" />
           </div>
           <div className="track__info">
-            <h4 className="track__info__name">{currentPlaying.name}</h4>
-            <h6 className="track__info__artists">
-              {currentPlaying.artists.join(", ")}
-            </h6>
+            <h4>{currentPlaying.name}</h4>
+            <h6>{currentPlaying.artists.join(", ")}
+</h6>
           </div>
         </div>
       )}
@@ -63,6 +62,7 @@ export default function CurrentTrack() {
 const Container = styled.div`
   .track {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 1rem;
 
@@ -76,16 +76,14 @@ const Container = styled.div`
     &__info {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 0rem;
       
-      &__name {
-        color: white;
-        font-size: 1.2rem;
+      h4{
+      color:white;
       }
-      
-      &__artists {
-        color: green;
-        font-size: 1rem; 
+      h6{
+      margin-top:-15px;
+      color:#b3b3b3;
       }
     }
   }

@@ -1,11 +1,12 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { reducerCases } from "../utils/Constants";
 import { useStateProvider } from "../utils/StateProvider";
 
 export default function Playlists() {
   const [{ token, playlists }, dispatch] = useStateProvider();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -35,53 +36,80 @@ export default function Playlists() {
     dispatch({ type: reducerCases.SET_PLAYLIST_ID, selectedPlaylistId });
   };
 
+  const filteredPlaylists = playlists.filter((playlist) =>
+    playlist.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Container>
-      Playlist
+      <h2>Playlists</h2>
+      <SearchInput
+        type="text"
+        placeholder="Search playlists..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
       <ul>
-        {playlists && playlists.length > 0 ? (
-          playlists.map(({ name, id }) => (
-            <li key={id} onClick={() => changeCurrentPlaylist(id)}>
-              {name}
-            </li>
-          ))
-        ) : (
-          <li>No playlists available</li>
-        )}
+        {filteredPlaylists.map(({ name, id }) => (
+          <li key={id} onClick={() => changeCurrentPlaylist(id)}>
+            {name}
+          </li>
+        ))}
       </ul>
     </Container>
   );
 }
 
 const Container = styled.div`
-height: 100%;
-overflow: hidden;
-margin-left:2.5rem;
-    ul {
-    
+  height: 100%;
+  overflow: hidden;
+  margin-left: 2.5rem;
+
+  h2 {
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  ul {
     list-style-type: none;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
     height: 52vh;
-    max-height:100%;
+    max-height: 100%;
     overflow: auto;
-    &::-webkit-scrollbar{
-    width: 0.7rem;
-    &-thumb{
-      background-color: rgba(255, 255, 255, 0.6);
+
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+      &-thumb {
+        background-color: rgba(255, 255, 255, 0.6);
       }
     }
 
     li {
-    display: flex;
-    gap: 1rem;
-    cursor: pointer;
+      display: flex;
+      gap: 1rem;
+      cursor: pointer;
       transition: 0.3s ease-in-out;
+      color: lightgray;
+
       &:hover {
         color: white;
       }
     }
+  }
+`;
+
+const SearchInput = styled.input`
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  margin-bottom: 1rem;
+  width: 100%; // Make the search input full width
+
+  &:focus {
+    outline: none;
+    border-color: white;
   }
 `;
