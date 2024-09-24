@@ -24,29 +24,33 @@ export default function Navbar({ navBackground }) {
 
 const Container = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem 2rem; /* Slightly reduced padding for a sleeker look */
     height: 15vh;
     position: sticky;
     top: 0;
     transition: 0.3s ease-in-out;
-    background-color: ${({ $navBackground }) =>
-        $navBackground ? "rgba(0,0,0,0.7)" : "transparent"};
+    margin-left:2.4rem;
+background: linear-gradient(135deg, #191414 60%, #1DB954);
+background-size: cover;
+
 
     .search__bar {
-        background-color: white;
-        width: 30%;
-        padding: 0.4rem 1rem;
-        border-radius: 2rem;
+        background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+        width: 40%;
+        padding: 0.5rem 1.5rem; /* Increased padding for comfort */
+        border-radius: 30px; /* More rounded edges */
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 
         input {
             border: none;
             height: 2rem;
             width: 100%;
+            font-size: 1rem; /* Added font size for readability */
             &:focus {
                 outline: none;
             }
@@ -54,13 +58,13 @@ const Container = styled.div`
     }
 
     .avatar {
-        background-color: black;
-        padding: 0.3rem 0.4rem;
-        padding-right: 1rem;
-        border-radius: 2rem;
+        background-color: #282828; 
+        padding: 0.5rem 0.8rem; 
+        border-radius: 30px; 
         display: flex;
         justify-content: center;
         align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); 
 
         a {
             display: flex;
@@ -73,11 +77,11 @@ const Container = styled.div`
         }
 
         svg {
-            font-size: 1.3rem;
-            background-color: #282828;
-            padding: 0.2rem;
-            border-radius: 1rem;
-            color: #c7c5c5;
+            font-size: 1.5rem; 
+            background-color: #1DB954;
+            padding: 0.3rem;
+            border-radius: 50%;
+            color: white; 
         }
     }
 `;

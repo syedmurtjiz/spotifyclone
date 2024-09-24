@@ -181,6 +181,13 @@ export default function Body({ headerBackground }) {
 }
 
 const Container = styled.div`
+
+   background: linear-gradient(135deg, #1DB954, #191414);
+   background-size: cover;
+   height: 250vh;
+   margin-left:2.4rem; 
+
+
     .playlist {
         margin: 0 2rem;
         display: flex;

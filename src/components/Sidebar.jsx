@@ -35,12 +35,13 @@ export default function Sidebar() {
 }
 
 const Conatainer = styled.div`
+
 background-color:black;
 color: #b3b3b3;
 display: flex;
 flex-direction: column;
 height: 100%;
-width:100%;
+width:120%;
 .top__links{
 display: flex;
 flex-direction: column;

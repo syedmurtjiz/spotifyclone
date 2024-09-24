@@ -7,30 +7,35 @@ import axios from "axios";
 import { useStateProvider } from "../utils/StateProvider";
 import Body from "./Body";
 import { reducerCases } from "../utils/Constants";
+import PlayerControls from "./PlayerControls"; // Ensure to import PlayerControls
+
 export default function Spotify() {
     const [{ token }, dispatch] = useStateProvider();
     const bodyRef = useRef();
-    const[navBackground, setNavBackground]= useState(false);
-    const[headerBackground, setHeaderBackground]= useState(false);
-    const bodyScrolled = () =>{
-      bodyRef.current.scrollTop >=30
-        ? setNavBackground(true)
-        :setNavBackground(false);
-      bodyRef.current.scrollTop >=268
-        ? setHeaderBackground(true)
-        :setHeaderBackground(false);  
+    const [navBackground, setNavBackground] = useState(false);
+    const [headerBackground, setHeaderBackground] = useState(false);
+    
+    const bodyScrolled = () => {
+        bodyRef.current.scrollTop >= 30
+            ? setNavBackground(true)
+            : setNavBackground(false);
+        bodyRef.current.scrollTop >= 268
+            ? setHeaderBackground(true)
+            : setHeaderBackground(false);  
     };
+
     useEffect(() => {
-        console.log("Token in Spotify component:", token); // Verify the token
+        console.log("Token in Spotify component:", token); // Log the token for debugging
+
         const getUserInfo = async () => {
             if (!token) {
-                console.error("No token available"); // This is where your error is triggered
+                console.error("No token available"); // Error handling if token is not available
                 return;
             }
             try {
                 const { data } = await axios.get("https://api.spotify.com/v1/me", {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`, // Correctly format the authorization header
                         "Content-Type": "application/json",
                     },
                 });
@@ -43,19 +48,21 @@ export default function Spotify() {
                 console.error("Error fetching user info:", error.response ? error.response.data : error.message);
             }
         };
-    
+
         getUserInfo();
     }, [dispatch, token]);
-    
+
     return (
         <Container>
             <div className="spotify__body">
                 <Sidebar />
                 <div className="body" ref={bodyRef} onScroll={bodyScrolled}>
-                    <Navbar  navBackground={navBackground}/>
+                    <Navbar navBackground={navBackground} />
                     <div className="body__contents">
-                        <Body headerBackground={headerBackground}/>
+                        <Body headerBackground={headerBackground} />
                     </div>
+                    {/* Pass the token to PlayerControls */}
+                    <PlayerControls token={token} trackId="YOUR_TRACK_ID" /> {/* Replace "YOUR_TRACK_ID" with actual track ID */}
                 </div>
             </div>
             <div className="spotify__footer">
