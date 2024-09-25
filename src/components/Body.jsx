@@ -11,7 +11,6 @@ export default function Body({ headerBackground }) {
     useEffect(() => {
         const getInitialPlaylist = async () => {
             try {
-                console.log(selectedPlaylistID);
                 const response = await axios.get(
                     `https://api.spotify.com/v1/playlists/${selectedPlaylistID}`,
                     {
@@ -34,11 +33,11 @@ export default function Body({ headerBackground }) {
                         image: track.album.images && track.album.images.length > 2 ? track.album.images[2].url : null,
                         duration: track.duration_ms,
                         context_uri: track.album.uri,
+                        album: track.album.name, // Correctly accessing the album name
                         track_number: track.track_number,
                     })),
                 };
 
-                // Dispatch the action to set the selected playlist
                 dispatch({ type: reducerCases.SET_PLAYLIST, selectedPlaylist });
             } catch (error) {
                 console.error("Error fetching playlist:", error);
@@ -57,12 +56,11 @@ export default function Body({ headerBackground }) {
     };
 
     const playTrack = async (id, name, artists, image, context_uri, track_number) => {
-        console.log("Attempting to play track:", id, name);
         try {
             const response = await axios.put(
                 `https://api.spotify.com/v1/me/player/play`,
                 {
-                    uris: [`spotify:track:${id}`], // Ensure the correct URI format
+                    uris: [`spotify:track:${id}`],
                 },
                 {
                     headers: {
@@ -73,7 +71,6 @@ export default function Body({ headerBackground }) {
             );
 
             if (response.status === 204) {
-                // Track started playing successfully
                 console.log("Track is now playing");
             } else {
                 console.error("Unexpected response:", response);
@@ -140,7 +137,7 @@ export default function Body({ headerBackground }) {
                                         artists,
                                         image,
                                         duration,
-                                        album,
+                                        album, // Access the album name from the track object
                                         context_uri,
                                         track_number,
                                     },
@@ -160,11 +157,10 @@ export default function Body({ headerBackground }) {
                                             </div>
                                             <div className="info">
                                                 <span className="name">{name}</span>
-                                                <span>{artists.join(', ')}</span>
                                             </div>
                                         </div>
                                         <div className="col">
-                                            <span>{album}</span>
+                                            <span>{album}</span> {/* Displaying the album name */}
                                         </div>
                                         <div className="col">
                                             <span>{msToMinutesAndSeconds(duration)}</span>
@@ -181,12 +177,10 @@ export default function Body({ headerBackground }) {
 }
 
 const Container = styled.div`
-
    background: linear-gradient(135deg, #1DB954, #191414);
    background-size: cover;
    height: 250vh;
-   margin-left:2.4rem; 
-
+   margin-left: 2.4rem; 
 
     .playlist {
         margin: 0 2rem;
@@ -221,7 +215,7 @@ const Container = styled.div`
             padding: 1rem 3rem;
             transition: 0.3s ease-in-out;
             background-color: ${({ $headerBackground }) =>
-                $headerBackground ? "#000000dc" : "none"};  // Use transient prop
+                $headerBackground ? "#000000dc" : "none"};
         }
         .tracks {
             margin: 0 2rem;
