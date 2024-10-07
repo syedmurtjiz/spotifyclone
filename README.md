@@ -1,11 +1,9 @@
-# Getting Started with Create React App
+# Spotify Clone App
 This application was developed using React.js as a Spotify clone, seamlessly integrated with Spotify. Users can connect any Spotify account and enjoy the following features:
-
-View the currently playing track.
-Browse and select from their playlists.
-Control playback with options to skip to the previous or next track, as well as pause and resume playback.
-Adjust the volume of the currently playing track effortlessly.
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1:View the currently playing track.
+2:Browse and select from their playlists.
+3:Control playback with options to skip to the previous or next track, as well as pause and resume playback.
+4:Adjust the volume of the currently playing track effortlessly.
 
 ## Available Scripts
 
