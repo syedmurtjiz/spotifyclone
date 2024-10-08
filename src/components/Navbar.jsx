@@ -13,10 +13,10 @@ export default function Navbar({ navBackground }) {
                 <input type="text" placeholder="Artists, songs or podcasts" />
             </div>
             <div className="avatar">
-                <a href="#">
+                <button>
                     <CgProfile />
                     <span>{userInfo?.userName}</span>
-                </a>
+                </button>
             </div>
         </Container>
     );
